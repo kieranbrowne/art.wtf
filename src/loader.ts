@@ -9,7 +9,7 @@ interface Obj {
 
 export function addObjToScene(art: Obj, scene: Scene) {
     var mtlLoader = new MTLLoader();
-    //mtlLoader.setTexturePath('/assets/3d-obj-loader/');
+    //mtlLoader.setTexturePath('./');
     mtlLoader.setPath('/assets/');
     var objLoader = new OBJLoader();
     objLoader.setPath('/assets/');

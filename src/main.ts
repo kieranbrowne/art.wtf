@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 import {addObjToScene} from './loader';
-import {addSky} from './sky';
+import {addSky, uniforms} from './sky';
 import {keyControls} from './control';
 
 const scene = new THREE.Scene();
@@ -20,25 +20,26 @@ camera.position.y = 4; // eye height
 addSky(scene);
 
 
-function animate() {
+function animate(timestamp) {
     requestAnimationFrame( animate );
     renderer.render( scene, camera );
     keyControls(camera);
+    uniforms[ "time" ].value = timestamp / 1000;
 }
-animate();
+animate(0);
 
 
 
-var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(30, 100%, 75%)'), 1.0);
+var keyLight = new THREE.DirectionalLight(new THREE.Color('hsl(60, 100%, 75%)'), 0.8);
 keyLight.position.set(-100, 0, 100);
 
-var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(240, 100%, 75%)'), 1.05);
+var fillLight = new THREE.DirectionalLight(new THREE.Color('hsl(20, 100%, 75%)'), 0.25);
 fillLight.position.set(100, 0, 100);
 
 var backLight = new THREE.DirectionalLight(0xffffff, 1.0);
 backLight.position.set(100, 0, -100).normalize();
 
-var ambientLight = new THREE.AmbientLight(0x660000, 2.);
+var ambientLight = new THREE.AmbientLight(0x80d93c, 1.);
 
 
 scene.add(keyLight);
@@ -49,14 +50,28 @@ scene.add(ambientLight);
 
 
 for(let i=0; i<10; i++) {
+    setTimeout(() => {
     addObjToScene({name: "kusama_pumpkin",
-               mod: x=>{
-                   x.position.z -= Math.random()*16 - 8;
-                   x.position.x += Math.random()*16 - 8;
-                   let s = Math.random() + .3;
-                   x.scale.set(s,s,s);
-                   x.rotation.y = Math.random()*6.18;
-               }} , scene);
+                   mod: x=>{
+                       x.position.z -= Math.random()*36 - 8;
+                       x.position.x += Math.random()*36 - 8;
+                       x.position.y = 80;
+                       let s = Math.random() + .3;
+                       x.scale.set(s,s,s);
+                       x.rotation.y = Math.random()*6.18;
+                       x.vel = 0;
+                   },
+                   anim: (function foo(x) {
+                       x.position.y -= x.vel;
+                       x.vel += 0.1;
+                       if(x.position.y< 0) {
+                           x.position.y = 0;
+                           x.vel *= -.5;
+                       }
+                       if((x.position.y > 0 || Math.abs(x.vel) > .2))
+                         setTimeout(()=>{foo(x)}, 1000/30)
+                   })
+                  } , scene);}, i*900);
 }
 
 function findGetParameter(parameterName): string {
