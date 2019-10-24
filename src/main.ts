@@ -75,10 +75,18 @@ for(let i=0; i<100; i++) {
                   } , scene);}, i*1900);
 }
 
+const kapoor = new THREE.Mesh(
+    new THREE.CircleGeometry( 15, 64 ),
+    new THREE.MeshBasicMaterial({color: 0x000000}));
+kapoor.rotation.x = 3.14*1.5;
+kapoor.position.x = 150;
+scene.add(kapoor);
+
 
 const s = 4;
 addObjToScene({name: "bourgeois_head",
-               mod: x=>{x.scale.set(s,s,s)},
+               mod: x=>{x.scale.set(s,s,s)
+                       },
            anim: (function foo(x) {
                let t = new Date().getTime() /1000;
                x.position.x -= .05;
