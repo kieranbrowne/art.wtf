@@ -49,14 +49,14 @@ scene.add(ambientLight);
 
 
 
-for(let i=0; i<10; i++) {
+for(let i=0; i<100; i++) {
     setTimeout(() => {
     addObjToScene({name: "kusama_pumpkin",
                    mod: x=>{
-                       x.position.z -= Math.random()*36 - 8;
-                       x.position.x += Math.random()*36 - 8;
+                       x.position.z -= Math.random()*200 - 100;
+                       x.position.x += Math.random()*200 - 100;
                        x.position.y = 80;
-                       let s = Math.random() + .3;
+                       let s = Math.random()*Math.random()*5 + .3;
                        x.scale.set(s,s,s);
                        x.rotation.y = Math.random()*6.18;
                        x.vel = 0;
@@ -68,11 +68,125 @@ for(let i=0; i<10; i++) {
                            x.position.y = 0;
                            x.vel *= -.5;
                        }
-                       if((x.position.y > 0 || Math.abs(x.vel) > .2))
+                       x.rotation.y += 0.041;
+                       //if((x.position.y > 0 || Math.abs(x.vel) > .2))
                          setTimeout(()=>{foo(x)}, 1000/30)
                    })
-                  } , scene);}, i*900);
+                  } , scene);}, i*1900);
 }
+
+
+const s = 4;
+addObjToScene({name: "bourgeois_head",
+               mod: x=>{x.scale.set(s,s,s)},
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000;
+               x.position.x -= .05;
+               x.rotation.x = Math.sin(t)/19;
+               x.position.y = Math.sin(t)/2;
+               x.rotation.z = Math.cos(t*.9)/20;
+               setTimeout(() => {foo(x);}, 100);
+           })}, scene);
+addObjToScene({name: "bourgeois_leg",
+               mod: x=>{x.position.y += 14*s;
+                        x.scale.set(s,s,s);},
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000;
+               x.rotation.y = Math.sin(t)/3;
+               x.rotation.x = Math.max(0,Math.cos(t)/3);
+               x.rotation.z = Math.max(0,Math.cos(t)/4)-.125;
+               x.position.x -= .05;
+               setTimeout(() => {foo(x);}, 100);
+           })
+              }, scene);
+
+addObjToScene({name: "bourgeois_leg",
+               mod: x=>{x.position.y += 14*s;
+                        x.scale.set(s,s,s);},
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000 - 200;
+               x.rotation.y = Math.sin(t)/3 + .8;
+               x.rotation.x = Math.max(0,Math.cos(t)/3);
+               x.rotation.z = Math.max(0,Math.cos(t)/4)-.125;
+               x.position.x -= .05;
+               setTimeout(() => {foo(x);}, 100);
+           })
+              }, scene);
+addObjToScene({name: "bourgeois_leg",
+               mod: x=>{x.position.y += 14*s;
+                        x.scale.set(s,s,s);},
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000 - 500;
+               x.rotation.y = Math.sin(t)/3 + .2;
+               x.rotation.x = Math.max(0,Math.cos(t)/3);
+               x.rotation.z = Math.max(0,Math.cos(t)/4)-.125;
+               x.position.x -= .05;
+               setTimeout(() => {foo(x);}, 100);
+           })
+              }, scene);
+
+addObjToScene({name: "bourgeois_leg",
+           mod: x=>{
+               x.position.y += 14*s;
+               x.scale.set(-s,s,s);
+                   },
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000 + 300;
+               x.rotation.y = Math.PI-Math.sin(t)/3 + .3;
+               x.rotation.x = -Math.max(0,Math.cos(t)/3) ;
+               x.rotation.z = -Math.max(0,Math.cos(t)/4)-.125;
+               x.position.x -= .05;
+               setTimeout(() => {foo(x);}, 100);
+           })
+              }, scene);
+
+// addObjToScene({name: "bourgeois_leg",
+//            mod: x=>{
+//                x.position.y += 14*s;
+//                x.scale.set(-s,s,s);
+//            },
+//            anim: (function foo(x) {
+//                let t = new Date().getTime() /1000 + 500;
+//                x.rotation.y = Math.PI-Math.sin(t)/3 + .4;
+//                x.rotation.x = -Math.max(0,Math.cos(t)/3) ;
+//                x.rotation.z = -Math.max(0,Math.cos(t)/4)-.125;
+//                x.position.x -= .05;
+//                setTimeout(() => {foo(x);}, 100);
+//            })
+//               }, scene);
+
+addObjToScene({name: "bourgeois_leg",
+           mod: x=>{
+               x.position.y += 14*s;
+               x.scale.set(-s,s,s);
+           },
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000 - 300;
+               x.rotation.y = Math.PI-Math.sin(t)/3 - .6;
+               x.rotation.x = -Math.max(0,Math.cos(t)/3) ;
+               x.rotation.z = -Math.max(0,Math.cos(t)/4)-.125;
+               x.position.x -= .05;
+               setTimeout(() => {foo(x);}, 100);
+           })
+              }, scene);
+
+addObjToScene({name: "bourgeois_leg",
+           mod: x=>{
+               x.position.y += 14*s;
+               x.scale.set(-s,s,s);
+           },
+           anim: (function foo(x) {
+               let t = new Date().getTime() /1000 - 400;
+               x.rotation.y = Math.PI-Math.sin(t)/3 - 0.1;
+               x.rotation.x = -Math.max(0,Math.cos(t)/5) ;
+               x.rotation.z = -Math.max(0,Math.cos(t)/8)-.5/8;
+               x.position.x -= .05;
+               setTimeout(() => {foo(x);}, 100);
+           })
+              }, scene);
+
+
+
 
 function findGetParameter(parameterName): string {
     var result = "";

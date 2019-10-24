@@ -10,7 +10,13 @@ const plainVertShader = "uniform float time; varying vec2 vUv; void main() {vUv 
 const material = new ShaderMaterial( {
     uniforms: uniforms,
     vertexShader: plainVertShader,
-    fragmentShader: "varying vec2 vUv; uniform float time; void main( void ) {vec2 position = - 1.0 + 2.0 * vUv; gl_FragColor = vec4( 1.-sin(time*.9)*.5, 1., 1. - sin(vUv.y + time), 1.0 );}"
+    fragmentShader: "varying vec2 vUv; uniform float time;"+
+        "void main( void ) {"+
+        "vec2 position = - 1.0 + 2.0 * vUv;"+
+        "vec2 gv = fract(vUv*80. + time);"+
+        "vec3 color = vec3(.6+vUv.y/2.,.6+vUv.y/2.,0.)*smoothstep(.2,.3,length(gv-.5));"+
+        "gl_FragColor = vec4( color, 1.0 );"+
+        "}"
 });
 
 export function addSky(scene : Scene) {

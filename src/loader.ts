@@ -3,7 +3,7 @@ import {MTLLoader, OBJLoader} from 'three-obj-mtl-loader';
 
 interface Obj {
     name: string;
-    mod(Object3D): void;
+    mod?(Object3D): void;
     anim?(Object3D): void;
 }
 
